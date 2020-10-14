@@ -48,7 +48,7 @@ class Address(UnicodeProperty):
 	def __init__(
 		self, summary, address='', city='', zip_code='', phone='', email='',
 		bank_name='', bank_account='', bank_code='', note='', vat_id='', ir='',
-		logo_filename='', vat_note='', country='', division='',
+		logo_filename='', vat_note='', country='', division='', bank_routing_ach='', bank_routing_wire=''
 	):
 		self.summary = summary
 		self.address = address
@@ -60,6 +60,8 @@ class Address(UnicodeProperty):
 		self.email = email
 		self.bank_name = bank_name
 		self.bank_account = bank_account
+		self.bank_routing_ach = bank_routing_ach
+		self.bank_routing_wire = bank_routing_wire
 		self.bank_code = bank_code
 		self.note = note
 		self.vat_id = vat_id
@@ -137,10 +139,9 @@ class Item(object):
 	:param tax: the tax rate under which the item falls (in percent)
 	"""
 
-	def __init__(self, count, price, description='', unit='', tax=Decimal(0), feature_name=''):
+	def __init__(self, count, price, description='', unit='', tax=Decimal(0)):
 		self.count = count
 		self.price = price
-		self.feature_name = feature_name
 		self._description = description
 		self.unit = unit
 		self.tax = tax
@@ -263,6 +264,10 @@ class Invoice(UnicodeProperty):
 		self.client = client
 		self.provider = provider
 		self.creator = creator
+		self.invoice_total = ""
+		self.invoice_balance = ""
+		self.invoice_date = ""
+		self.invoice_due_date = ""
 		self._items = []
 
 		for attr in self._attrs:
