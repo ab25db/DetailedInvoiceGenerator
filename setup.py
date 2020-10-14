@@ -32,11 +32,11 @@ for file_ in ('README', 'CHANGES', 'CONTRIBUTORS'):
 
 
 setup(
-    name="InvoiceGenerator",
+    name="DetailedInvoiceGenerator",
     version=version,
     author="Adam Strauch",
     author_email="cx@initd.cz",
-    description="Library to generate PDF invoice.",
+    description="Library to generate PDF invoice. Forked by Daniel",
     license="BSD",
     keywords="invoice invoices generator",
     url="https://github.com/creckx/InvoiceGenerator",

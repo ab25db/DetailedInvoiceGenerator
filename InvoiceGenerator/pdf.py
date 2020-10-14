@@ -105,8 +105,8 @@ def prepare_invoice_draw(self):
         warnings.warn("currency attribute is deprecated, use currency_locale instead", DeprecationWarning)
 
 
-def currency(amount, unit, locale):
-    currency_string = format_currency(amount, unit, locale=locale)
+def currency(amount, unit, locale, decimal_quantization=True):
+    currency_string = format_currency(amount, unit, locale=locale, decimal_quantization=decimal_quantization)
     if locale == 'cs_CZ.UTF-8':
         currency_string = currency_string.replace(u",00", u",-")
     return currency_string
@@ -364,7 +364,7 @@ class SimpleInvoice(BaseInvoice):
                     self.pdf.drawRightString((LEFT + 85) * mm, (TOP - i) * mm, u'%s %s' % (locale.format("%i", item.count, grouping=True), item.unit))
                 else:
                     self.pdf.drawRightString((LEFT + 85) * mm, (TOP - i) * mm, u'%s %s' % (locale.format("%.2f", item.count, grouping=True), item.unit))
-                self.pdf.drawRightString((LEFT + 110) * mm, (TOP - i) * mm, currency(item.price, self.invoice.currency, self.invoice.currency_locale))
+                self.pdf.drawRightString((LEFT + 110) * mm, (TOP - i) * mm, currency(item.price, self.invoice.currency, self.invoice.currency_locale, decimal_quantization=False))
                 self.pdf.drawRightString((LEFT + 134) * mm, (TOP - i) * mm, currency(item.total, self.invoice.currency, self.invoice.currency_locale))
                 self.pdf.drawRightString((LEFT + 144) * mm, (TOP - i) * mm, '%.0f %%' % item.tax)
                 self.pdf.drawRightString((LEFT + 173) * mm, (TOP - i) * mm, currency(item.total_tax, self.invoice.currency, self.invoice.currency_locale))
@@ -374,7 +374,7 @@ class SimpleInvoice(BaseInvoice):
                     self.pdf.drawRightString((LEFT + 118) * mm, (TOP - i) * mm, u'%s %s' % (locale.format("%i", item.count, grouping=True), item.unit))
                 else:
                     self.pdf.drawRightString((LEFT + 118) * mm, (TOP - i) * mm, u'%s %s' % (locale.format("%.2f", item.count, grouping=True), item.unit))
-                self.pdf.drawRightString((LEFT + 148) * mm, (TOP - i) * mm, currency(item.price, self.invoice.currency, self.invoice.currency_locale))
+                self.pdf.drawRightString((LEFT + 148) * mm, (TOP - i) * mm, currency(item.price, self.invoice.currency, self.invoice.currency_locale, decimal_quantization=False))
                 self.pdf.drawRightString((LEFT + 173) * mm, (TOP - i) * mm, currency(item.total, self.invoice.currency, self.invoice.currency_locale))
                 i += 5
 
