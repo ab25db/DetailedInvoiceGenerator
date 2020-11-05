@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: DetailedInvoiceGenerator
-Version: 1.1.1
+Version: 1.1.2
 Summary: Library to generate PDF invoice. Forked by Daniel
 Home-page: https://github.com/creckx/InvoiceGenerator
 Author: Adam Strauch

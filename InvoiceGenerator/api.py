@@ -268,6 +268,7 @@ class Invoice(UnicodeProperty):
 		self.invoice_balance = ""
 		self.invoice_date = ""
 		self.invoice_due_date = ""
+		self.payment_terms = ""
 		self._items = []
 
 		for attr in self._attrs:

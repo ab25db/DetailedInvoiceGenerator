@@ -173,7 +173,7 @@ class SimpleInvoice(BaseInvoice):
 			self.pdf.drawString(
 				(self.LEFT + 90) * mm,
 				self.TOP*mm,
-				_(u'Invoice num.: %s') % self.invoice.number,
+				_(u'Invoice # %s') % self.invoice.number,
 			)
 		else:
 			self.pdf.drawString(
@@ -240,32 +240,40 @@ class SimpleInvoice(BaseInvoice):
 
 	def _drawPayment(self, TOP, LEFT):
 		self.pdf.setFont('DejaVu-Bold', 8)
-		self.pdf.drawString(LEFT * mm, (TOP + 2) * mm, _(u'Wire & ACH Information'))
+		# self.pdf.drawString(LEFT * mm, (TOP + 2) * mm, _(u'Wire & ACH Information'))
+		self.pdf.drawString(LEFT * mm, (TOP + 2) * mm, _(u'Invoice Information'))
 
 		text = self.pdf.beginText((LEFT) * mm, (TOP - 2) * mm)
+
+		# sales dept requested removal of wire info to promote cc auto billing.
+		# lines = [
+		# 	self.invoice.provider.bank_name,
+		# 	'%s: %s' % (_(u'Account #'), self.invoice.provider.bank_account),
+		# 	'%s: %s' % (_(u'Bank Name #'), self.invoice.provider.bank_name),
+		# 	'%s: %s' % (_(u'Routing # ACHs'), self.invoice.provider.bank_routing_ach),
+		# 	'%s: %s' % (_(u'Routing # Wires'), self.invoice.provider.bank_routing_wire),
+		# ]
 		lines = [
-			self.invoice.provider.bank_name,
-			'%s: %s' % (_(u'Account #'), self.invoice.provider.bank_account),
-			'%s: %s' % (_(u'Bank Name #'), self.invoice.provider.bank_name),
-			'%s: %s' % (_(u'Routing # ACHs'), self.invoice.provider.bank_routing_ach),
-			'%s: %s' % (_(u'Routing # Wires'), self.invoice.provider.bank_routing_wire),
+			'%s: %s' % (_(u'Invoice Date '), self.invoice.invoice_date),
+			'%s: %s' % (_(u'Payment Terms'), self.invoice.payment_terms),
+			'%s: %s' % (_(u'Due Date'), self.invoice.invoice_due_date),
 		]
-		if self.invoice.variable_symbol:
-			lines.append(
-				'%s: %s' % (_(u'Variable symbol'), self.invoice.variable_symbol),
-			)
-		if self.invoice.specific_symbol:
-			lines.append(
-				'%s: %s' % (_(u'Specific symbol'), self.invoice.specific_symbol),
-			)
-		if self.invoice.iban:
-			lines.append(
-				'%s: %s' % (_(u'IBAN'), self.invoice.iban),
-			)
-		if self.invoice.swift:
-			lines.append(
-				'%s: %s' % (_(u'SWIFT'), self.invoice.swift),
-			)
+		# if self.invoice.variable_symbol:
+		# 	lines.append(
+		# 		'%s: %s' % (_(u'Variable symbol'), self.invoice.variable_symbol),
+		# 	)
+		# if self.invoice.specific_symbol:
+		# 	lines.append(
+		# 		'%s: %s' % (_(u'Specific symbol'), self.invoice.specific_symbol),
+		# 	)
+		# if self.invoice.iban:
+		# 	lines.append(
+		# 		'%s: %s' % (_(u'IBAN'), self.invoice.iban),
+		# 	)
+		# if self.invoice.swift:
+		# 	lines.append(
+		# 		'%s: %s' % (_(u'SWIFT'), self.invoice.swift),
+		# 	)
 		text.textLines(lines)
 		self.pdf.drawText(text)
 
